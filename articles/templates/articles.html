@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+
+{% block article %}
+    {% if  articles.count > 0 %}
+        {% for article in articles %}
+            <div class="col-lg-12 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="h6 text-uppercase mb-0"><a href="/articles/{{ article.id }}">{{ article.title }}</a>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <h6>Opublikowano : {{ article.published }}</h6>
+{#                           <center><img src="https://promotraffic.pl/wp-content/uploads/2017/11/%C5%9Aledzenie-klikni%C4%99%C4%87-w-obrazek-z-Google-Tag-Managerem-logo-wpisu.jpg" height="250" ></center>#}
+{#                        <br>#}
+                        {{ article.content | truncatewords:100}}
+                        <br>
+                        <a href="/articles/{{ article.id }}"><button type="submit" class="btn btn-primary">Czytaj więcej</button></a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <p>Brak artykułów!</p>
+    {% endif %}
+{% endblock %}
