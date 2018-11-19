@@ -1,7 +1,7 @@
 import datetime
 
 from django import forms
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.template.context_processors import csrf
@@ -10,7 +10,7 @@ from articles.forms import CommentForm, AddArticleForm
 from articles.models import *
 
 from django.views.decorators.csrf import csrf_protect
-
+from django.contrib.auth.decorators import login_required
 
 def articles(request):
     data = {'articles': Article.objects.all().order_by('-id')}
@@ -56,10 +56,12 @@ def article(request, id):
     return render(request, 'article.html', {'article': article, 'form': form})
 
 
+@login_required
 def add_article(request):
     form = AddArticleForm()
     if request.POST:
         data = request.POST.copy()
+        data['user'] = request.user.id
         data['published'] = datetime.datetime.now()
         form = AddArticleForm(data)
         if form.is_valid():

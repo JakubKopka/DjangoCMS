@@ -23,6 +23,7 @@ urlpatterns = [
     path('', articles),
     path('admin/', admin.site.urls),
     path('articles/', include('articles.urls')),
+    path('accounts/', include('userprofile.urls')),
     path('accounts/login/', views.login),
     path('accounts/auth/', views.auth_view),
     path('accounts/logout/', views.logout),

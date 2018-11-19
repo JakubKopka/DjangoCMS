@@ -8,10 +8,13 @@
             </div>
             <div class="card-body">
                 {% if user.is_superuser %}
-                                <a href="/admin/articles/article/{{ article.id }}/change/">(Edytuj artykuł)</a>
+                    <a href="/admin/articles/article/{{ article.id }}/change/">(Edytuj artykuł)</a>
                 {% endif %}
-                <h6>Opublikowano : {{ article.published }}</h6>
+                <h6>Opublikowano {{ article.published }}</h6>
                 {{ article.content }}
+                <br>
+                <br>
+                Autor: {{ article.user.username }}
 
             </div>
         </div>
@@ -26,7 +29,7 @@
                 {% if article.comment_set.all.count  > 0 %}
                     {% for c in article.comment_set.all reversed %}
                         <blockquote>({{ c.published|date:"Y.m.d H:i" }})
-                        <b>{{ c.user }}: </b>
+                            <b>{{ c.user }}: </b>
                             {{ c.content }}
                             {% if user.is_superuser %}
                                 <a href="/admin/articles/comment/{{ c.id }}/">(Edytuj komentarz)</a>
@@ -48,15 +51,19 @@
             </div>
             <div class="card-body">
                 {% if user.is_authenticated %}
-                <form method="post" class="form-group">
-                    {% csrf_token %}
-                    <br>
-                    Treść:
-                    <br>
-                    {{ form.content }}
-                    <br>
-                    <input type="submit" button type="submit" class="btn btn-primary">
-                </form>
+                    <form method="post" class="form-group">
+                        {% csrf_token %}
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="content">Dodaj komentarz</label>
+                                <textarea rows="10" cols="100%" id="content" name="content" type="content"
+                                          placeholder="Treść"
+                                          class="form-control" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Dodaj komentarz</button>
+                        </fieldset>
+                    </form>
                 {% else %}
                     <b>Zaloguj się aby dodać komentarz </b>
                     <br>

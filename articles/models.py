@@ -6,6 +6,7 @@ from django.db import models
 # Strona 22/23 w książce
 
 class Article(models.Model):
+    user = models.ForeignKey(User, verbose_name="Autor", on_delete=models.CASCADE)
     title = models.CharField(max_length=150, verbose_name="Tytuł")
     content = models.TextField(verbose_name="Zawartość")
     published = models.DateTimeField(verbose_name="Data publikacji")

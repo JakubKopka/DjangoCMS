@@ -1,9 +1,10 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.forms import UserCreationForm
+from DjangoCMS.forms import RegisterForm
 
 
 @csrf_protect
@@ -25,7 +26,7 @@ def auth_view(request):
     else:
         c = {'error': "Błąd logowania!"}
         c.update(csrf(request))
-        return render_to_response('login.html', c)
+        return render(request, 'login.html', c)
 
 
 def logout(request):
@@ -38,21 +39,23 @@ def loggedin(request):
 
 
 def invalid(request):
-    return render_to_response('error.html', {'error': "Błąd logowania!"})
+    return render(request, 'error.html', {'error': "Błąd logowania!"})
 
 @csrf_protect
 def register(request):
     args = {}
+    args.update(csrf(request))
+    form = RegisterForm()
+
     if request.POST:
-        form = UserCreationForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/accounts/register_success/')
+            return HttpResponseRedirect('/')
 
-        args['error'] = "Błąd rejestracji!"
-    args.update(csrf(request))
-    args['form'] = UserCreationForm()
-    return render_to_response('register.html', args)
+    args['form'] = form
+    print(form.errors.values())
+    return render(request, 'register.html', args)
 
 
 def register_success(request):
