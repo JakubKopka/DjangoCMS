@@ -20,6 +20,7 @@ from DjangoCMS import views
 
 
 urlpatterns = [
+    path('', articles),
     path('admin/', admin.site.urls),
     path('articles/', include('articles.urls')),
     path('accounts/login/', views.login),

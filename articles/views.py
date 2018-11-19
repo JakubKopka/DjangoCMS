@@ -4,15 +4,18 @@ from django import forms
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.template.context_processors import csrf
 
-from articles.forms import CommentForm
+from articles.forms import CommentForm, AddArticleForm
 from articles.models import *
 
 from django.views.decorators.csrf import csrf_protect
 
+
 def articles(request):
     data = {'articles': Article.objects.all().order_by('-id')}
-    return render_to_response('articles.html', data)
+
+    return render(request, 'articles.html', data)
 
 # @csrf_protect
 # def addComent(request, id):
@@ -42,6 +45,7 @@ def article(request, id):
     form = CommentForm()
     if request.POST:
         data = request.POST.copy()
+        data['user'] = request.user.id
         data['article'] = article.id
         data['published'] = datetime.datetime.now()
         form = CommentForm(data)
@@ -51,8 +55,15 @@ def article(request, id):
 
     return render(request, 'article.html', {'article': article, 'form': form})
 
-    # return render_to_response('article.html', {'article': article})
 
+def add_article(request):
+    form = AddArticleForm()
+    if request.POST:
+        data = request.POST.copy()
+        data['published'] = datetime.datetime.now()
+        form = AddArticleForm(data)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
 
-
-# Create your views here.
+    return render(request, 'addArticle.html', {'form': form})

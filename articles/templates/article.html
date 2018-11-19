@@ -7,9 +7,10 @@
                 <h3 class="h6 text-uppercase mb-0">{{ article.title }}</h3>
             </div>
             <div class="card-body">
+                {% if user.is_superuser %}
+                                <a href="/admin/articles/article/{{ article.id }}/change/">(Edytuj artykuł)</a>
+                {% endif %}
                 <h6>Opublikowano : {{ article.published }}</h6>
-                {#              <center><img src="https://promotraffic.pl/wp-content/uploads/2017/11/%C5%9Aledzenie-klikni%C4%99%C4%87-w-obrazek-z-Google-Tag-Managerem-logo-wpisu.jpg" height="250" ></center>#}
-                {#                        <br>#}
                 {{ article.content }}
 
             </div>
@@ -26,9 +27,10 @@
                     {% for c in article.comment_set.all reversed %}
                         <blockquote>({{ c.published|date:"Y.m.d H:i" }})
                         <b>{{ c.user }}: </b>
-                            {{ c.content }} (
+                            {{ c.content }}
                             {% if user.is_superuser %}
-                                <a href="/admin/articles/comment/{{ c.id }}/">Edytuj</a>{% endif %})
+                                <a href="/admin/articles/comment/{{ c.id }}/">(Edytuj komentarz)</a>
+                            {% endif %}
                         </blockquote>
                     {% endfor %}
                 {% else %}
@@ -45,12 +47,9 @@
                 <h6 class="text-uppercase mb-0">Dodaj komentarz</h6>
             </div>
             <div class="card-body">
-
+                {% if user.is_authenticated %}
                 <form method="post" class="form-group">
                     {% csrf_token %}
-                    Nazwa użytkownika:
-                    {{ form.user }}
-                    <br>
                     <br>
                     Treść:
                     <br>
@@ -58,8 +57,15 @@
                     <br>
                     <input type="submit" button type="submit" class="btn btn-primary">
                 </form>
+                {% else %}
+                    <b>Zaloguj się aby dodać komentarz </b>
+                    <br>
+                    <a href="/accounts/login/" class="btn btn-primary">Zaloguj się</a>
+                {% endif %}
 
             </div>
         </div>
     </div>
 {% endblock %}
+
+
