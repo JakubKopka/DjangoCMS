@@ -13,7 +13,7 @@
                         <h6>Opublikowano {{ article.published }}Autor: {{ article.user.username }}</h6>
 {#                           <center><img src="https://promotraffic.pl/wp-content/uploads/2017/11/%C5%9Aledzenie-klikni%C4%99%C4%87-w-obrazek-z-Google-Tag-Managerem-logo-wpisu.jpg" height="250" ></center>#}
 {#                        <br>#}
-                        {{ article.content | truncatewords:100}}
+                        {{ article.content  | safe | linebreaks | truncatewords:100}}
                         <br>
                         <a href="/articles/{{ article.id }}"><button type="submit" class="btn btn-primary">Czytaj więcej</button></a>
                     </div>

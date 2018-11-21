@@ -11,7 +11,7 @@
                     <a href="/admin/articles/article/{{ article.id }}/change/">(Edytuj artykuł)</a>
                 {% endif %}
                 <h6>Opublikowano {{ article.published }}</h6>
-                {{ article.content }}
+                {{ article.content | safe | linebreaks }}
                 <br>
                 <br>
                 Autor: {{ article.user.username }}
@@ -30,7 +30,7 @@
                     {% for c in article.comment_set.all reversed %}
                         <blockquote>({{ c.published|date:"Y.m.d H:i" }})
                             <b>{{ c.user }}: </b>
-                            {{ c.content }}
+                            {{ c.content  | safe | linebreaks }}
                             {% if user.is_superuser %}
                                 <a href="/admin/articles/comment/{{ c.id }}/">(Edytuj komentarz)</a>
                             {% endif %}

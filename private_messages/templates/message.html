@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <strong>Od: </strong>{{ notification.sender }} <strong>Data
+                wysłania:</strong> {{ notification.published }}<br>
+                <strong>Tytuł wiadomości: </strong>{{ notification.title }}<br>
+                <hr>
+                <strong>Treść:</strong>
+                <br>
+                <blockquote>{{ notification.content | safe | linebreaks }}</blockquote>
+                <hr>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
