@@ -23,8 +23,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    # user = models.CharField(max_length=150, verbose_name="Użytkownik")
-    user = models.ForeignKey(User, verbose_name="Użytkownik", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name="Autor", on_delete=models.CASCADE)
     article = models.ForeignKey(Article, verbose_name="Artykuł", on_delete=models.CASCADE)
     content = models.TextField(verbose_name="Zawartość")
     published = models.DateTimeField(verbose_name="Data dodania")
@@ -38,5 +37,3 @@ class Comment(models.Model):
 
     def __unicode__(self):
         return self.user
-
-

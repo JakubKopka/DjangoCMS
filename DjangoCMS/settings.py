@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles',
     'userprofile',
-
+    'private_messages',
 ]
 
 

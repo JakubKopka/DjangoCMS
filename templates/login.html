@@ -1,6 +1,6 @@
 {#{% extends "main.html" %}#}
 {##}
-{#{% block article %}#}
+{#{% block content %}#}
 {#    <form action="/accounts/auth" method="post" class="form horizontal well">#}
 {#    {% csrf_token %}#}
 {#    <label for="username">Użytkownik: </label>#}
@@ -51,7 +51,7 @@
 
 {% extends "main.html" %}
 
-{% block article %}
+{% block content %}
     <form action="/accounts/auth/" method="post">
         {% csrf_token %}
         <fieldset>

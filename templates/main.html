@@ -9,7 +9,7 @@
             by J.K.</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
-<input type="text" placeholder="Search..">
+                <input type="text" placeholder="Search..">
                 </li>
             </ul>
         </nav>
@@ -27,27 +27,7 @@
                         class="o-table-content-1 mr-3 text-gray"></i><span>Tables</span></a></li>
                 <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
                         class="o-survey-1 mr-3 text-gray"></i><span>Forms</span></a></li>
-                <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages"
-                                                 aria-expanded="false"
-                                                 aria-controls="pages" class="sidebar-link text-muted"><i
-                        class="o-wireframe-1 mr-3 text-gray"></i><span>Pages</span></a>
-                    <div id="pages" class="collapse">
-                        <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
-                            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page
-                                one</a>
-                            </li>
-                            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page
-                                two</a>
-                            </li>
-                            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page
-                                three</a>
-                            </li>
-                            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted pl-lg-5">Page
-                                four</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+
                 <li class="sidebar-list-item"><a href="login.html" class="sidebar-link text-muted"><i
                         class="o-exit-1 mr-3 text-gray"></i><span>Login</span></a></li>
             </ul>
@@ -61,7 +41,29 @@
                     <li class="sidebar-list-item"><a href="/accounts/profile/" class="sidebar-link text-muted"><i
                             class="o-wireframe-1 mr-3 text-gray"></i><span>Profil</span></a></li>
                     <li class="sidebar-list-item"><a href="/articles/add/" class="sidebar-link text-muted"><i
-                                class="o-survey-1 mr-3 text-gray"></i><span>Dodaj artykuł</span></a></li>
+                            class="o-survey-1 mr-3 text-gray"></i><span>Dodaj artykuł</span></a></li>
+
+
+                    <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages"
+                                                     aria-expanded="false"
+                                                     aria-controls="pages" class="sidebar-link text-muted"><i
+                            class="o-wireframe-1 mr-3 text-gray"></i><span>Wiadomości</span></a>
+                        <div id="pages" class="collapse">
+                            <ul class="sidebar-menu list-unstyled border-left border-primary border-thick">
+                                <li class="sidebar-list-item"><a href="/messages/"
+                                                                 class="sidebar-link text-muted pl-lg-5">Skrzynka
+                                    odbiorcza
+                                </a>
+                                </li>
+                                <li class="sidebar-list-item"><a href="/messages/send_message/"
+                                                                 class="sidebar-link text-muted pl-lg-5">Wyślij
+                                    wiadomość</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+
                     <li class="sidebar-list-item"><a href="/accounts/logout/" class="sidebar-link text-muted"><i
                             class="o-exit-1 mr-3 text-gray"></i><span>Wyloguj</span></a></li>
 
@@ -86,18 +88,18 @@
         <div class="page-holder w-100 d-flex flex-wrap">
             <div class="container-fluid px-xl-5">
                 <section class="py-5">
-                {% block error %}
-                            {% if form.errors %}
-                                <strong>Opps!</strong>
-                                    {% for error in form.errors.values %}
-                                        <strong>{{ error }}</strong>
-                                    {% endfor %}
-                            {% endif %}
-                            <br>
-                        {% endblock %}
+                    {% block error %}
+                        {% if form.errors %}
+                            <strong>Opps!</strong>
+                            {% for error in form.errors.values %}
+                                <strong>{{ error }}</strong>
+                            {% endfor %}
+                        {% endif %}
+                        <br>
+                    {% endblock %}
                     <div class="row">
 
-                        {% block article %}
+                        {% block content %}
                         {% endblock %}
 
                     </div>
