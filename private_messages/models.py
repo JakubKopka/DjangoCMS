@@ -1,6 +1,10 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class PrivateMessages(models.Model):
@@ -11,7 +15,6 @@ class PrivateMessages(models.Model):
     recipient = models.ForeignKey(User, related_name="Odbiorca", on_delete=models.CASCADE)
     published = models.DateTimeField(verbose_name="Data wysłania", default=None)
 
-
     class Meta:
         verbose_name = "Wiadomość"
         verbose_name_plural = "Wiadomości"
@@ -21,3 +24,15 @@ class PrivateMessages(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+@receiver(post_save, sender=User)
+def send_welcome_message(sender, **kwargs):
+    if kwargs.get('created', False):
+        recipient = User.objects.get(id=1)
+        PrivateMessages.objects.create(recipient=kwargs.get('instance'),
+                                       title="Witamy",
+                                       content="Treść",
+                                       sender=recipient,
+                                       published=datetime.datetime.now(),
+                                       )

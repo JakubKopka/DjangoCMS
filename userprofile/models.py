@@ -6,7 +6,7 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, verbose_name="Użytownik", on_delete=models.SET_DEFAULT, default=None)
+    user = models.OneToOneField(User, verbose_name="Użytownik", on_delete=models.CASCADE)
     country = models.CharField(max_length=150, verbose_name="Kraj")
     date_of_birth = models.DateField(verbose_name="Data urodzenia", null=True)
 
