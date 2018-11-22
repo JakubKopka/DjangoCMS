@@ -11,6 +11,7 @@ from DjangoCMS.forms import RegisterForm
 def login(request):
     c = {}
     c.update(csrf(request))
+    c['title'] = "Logowanie"
     return render_to_response('login.html', c)
 
 @csrf_protect
@@ -44,6 +45,7 @@ def invalid(request):
 @csrf_protect
 def register(request):
     args = {}
+    args['title'] = "Rejestracja"
     args.update(csrf(request))
     form = RegisterForm()
 

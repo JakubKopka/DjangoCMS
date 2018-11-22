@@ -9,9 +9,13 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile(request):
-
+    args = {}
     if request.POST:
-        form = ProfileForm(request.POST, instance=request.user.profile)
+        try:
+            form = ProfileForm(request.POST, instance=request.user.profile)
+        except:
+            args['error'] = "Błąd"
+
         if form.is_valid():
             form.save()
     else:
@@ -19,7 +23,7 @@ def profile(request):
         profile_ = user.profile
         form = ProfileForm(instance=profile_)
 
-    args = {}
+    args['title'] = "Profil"
     args.update(csrf(request))
     args['form'] = form
 
