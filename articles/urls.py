@@ -6,5 +6,6 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('show_all/', articles),
     path('<int:id>/', article),
-    path('add/', add_article)
+    path('add/', add_article),
+    path('<int:id>/pdf/', show_article_pdf)
 ]

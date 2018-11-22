@@ -1,9 +1,13 @@
+import datetime
+
 from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.template.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.forms import UserCreationForm
+from pytz import unicode
+
 from DjangoCMS.forms import RegisterForm
 
 
@@ -62,3 +66,8 @@ def register(request):
 
 def register_success(request):
     return render_to_response('register_success.html')
+
+
+def ajax(request):
+    d = datetime.datetime.now()
+    return HttpResponse(d.strftime("%d-%m-%Y %H:%M:%S"))

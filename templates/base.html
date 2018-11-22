@@ -30,6 +30,26 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 
+    <script type="text/javascript" src="http://dynamicdrive.com/dynamicindex17/ajaxroutine.js"></script>
+    <script type="text/javascript">
+        function processGetPost() {
+            var myajax = ajaxpack.ajaxobj
+            var myfiletype = ajaxpack.filetype
+            if (myajax.readyState == 4) {
+                if (myajax.status == 200 ||
+                    window.location.href.indexOf("http") == -1) {
+                    // Jeżeli coś zostanie zwrócone, wyświetl to
+                    if (myajax.responseText.length > 3) {
+                        document.getElementById('aj').innerHTML = '<h6>' + myajax.responseText + '</h6>';
+                    } else {
+                        // Czyścimy komunikat
+                        document.getElementById('aj').innerHTML = '';
+                    }
+                }
+            }
+        }
+        setInterval(function () {document.getElementById('buttonID5').click();}, 1000);
+    </script>
 
 </head>
 <body>
@@ -139,7 +159,11 @@
                     {% endblock %}
                     <div class="row">
 
+                        <div id="aj" style="text-align:center;"></div>
+                        <a id="buttonID5" onclick="ajaxpack.getAjaxRequest('/ajax/', '', processGetPost, 'txt')"></a>
+
                         {% block content %}
+
                         {% endblock %}
 
                     </div>

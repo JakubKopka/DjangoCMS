@@ -8,8 +8,14 @@
             </div>
             <div class="card-body">
                 {% if user.is_superuser %}
-                    <a href="/admin/articles/article/{{ article.id }}/change/">(Edytuj artykuł)</a>
+                    <a href="/admin/articles/article/{{ article.id }}/change/">
+                        <button type="button" class="btn btn-sm btn-primary">Edytuj artykuł</button>
+                    </a>
                 {% endif %}
+                <a href="/articles/{{ article.id }}/pdf/">
+                    <button type="button" class="btn btn-sm btn-info">Generuj PDF</button>
+                </a>
+
                 <h6>Opublikowano {{ article.published }}</h6>
                 {{ article.content | safe | linebreaks }}
                 <br>
@@ -32,7 +38,9 @@
                             <b>{{ c.user }}: </b>
                             {{ c.content  | safe | linebreaks }}
                             {% if user.is_superuser %}
-                                <a href="/admin/articles/comment/{{ c.id }}/">(Edytuj komentarz)</a>
+                                <a href="/admin/articles/comment/{{ c.id }}/">
+                                    <button type="button" class="btn btn-sm btn-primary">Edytuj komentarz</button>
+                                </a>
                             {% endif %}
                         </blockquote>
                     {% endfor %}

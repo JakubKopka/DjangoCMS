@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pl-PL">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style type="text/css">
+        @page {
+            size: A4;
+            margin: 1.5cm;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Data wygenerowania - {{ today }}</h3>
+        </div>
+
+        <strong>Adres strony: </strong> {{ request.build_absolute_uri }} <br>
+
+        <div class="list-group">
+            <p>Wygnerowane dla: {{ request.user.username }} ({{ request.user.email }})</p>
+        </div>
+        <hr>
+        <h4><strong>Data publikacji:</strong> {{ article.published }} </h4><br>
+        <strong>Autor:</strong> {{ article.user.username }} <br>
+        <h4><strong>Tytuł:</strong> {{ article.title }} </h4><br>
+        <strong>Treść:</strong>
+        {{ article.content | safe | linebreaks }}
+
+        {% if article.comment_set.all.count  > 0 %}
+            <hr>
+            <h3><strong>Komentarze:</strong></h3>
+            {% for c in article.comment_set.all reversed %}
+                <strong> Autor: </strong>{{ c.user }} <strong>Data publikacji: </strong>{{ c.published }}<br>
+                <strong>Treść:</strong>
+                {{ c.content | safe | linebreaks }}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
+
