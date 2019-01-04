@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Strona 22/23 w książce
+
 
 class Article(models.Model):
     user = models.ForeignKey(User, verbose_name="Autor", on_delete=models.CASCADE)
