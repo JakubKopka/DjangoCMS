@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_protect
 from userprofile.forms import ProfileForm
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def profile(request):
     args = {}

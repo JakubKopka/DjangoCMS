@@ -11,14 +11,13 @@ from pytz import unicode
 from DjangoCMS.forms import RegisterForm
 
 
-@csrf_protect
 def login(request):
     c = {}
     c.update(csrf(request))
     c['title'] = "Logowanie"
     return render_to_response('login.html', c)
 
-@csrf_protect
+
 def auth_view(request):
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -46,7 +45,7 @@ def loggedin(request):
 def invalid(request):
     return render(request, 'error.html', {'error': "Błąd logowania!"})
 
-@csrf_protect
+
 def register(request):
     args = {}
     args['title'] = "Rejestracja"

@@ -11,13 +11,13 @@ from django.contrib.auth.decorators import login_required
 
 from DjangoCMS.render import Render
 
+
 def articles(request):
     data = {'articles': Article.objects.all().order_by('-id')}
     data['title'] = "Artykuły"
     return render(request, 'articles.html', data)
 
 
-@csrf_protect
 def article(request, id):
     article = Article.objects.get(id=id)
     form = CommentForm()
@@ -57,12 +57,12 @@ def add_article(request):
 
 
 def show_article_pdf(request, id):
-        a = Article.objects.get(id=id)
-        today = datetime.datetime.now()
-        params = {
-            'title' : a.title,
-            'today': today,
-            'article': a,
-            'request': request
-        }
-        return Render.render('article_pdf.html', params)
+    a = Article.objects.get(id=id)
+    today = datetime.datetime.now()
+    params = {
+        'title': a.title,
+        'today': today,
+        'article': a,
+        'request': request
+    }
+    return Render.render('article_pdf.html', params)

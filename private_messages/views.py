@@ -10,11 +10,13 @@ from private_messages.models import *
 
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def delete_messages(request, id):
     PrivateMessages.objects.filter(id=id, recipient=request.user).delete()
 
     return HttpResponseRedirect('/messages/')
+
 
 @login_required
 def show_messages(request, id):
@@ -23,6 +25,7 @@ def show_messages(request, id):
     n.save()
 
     return render(request, 'message.html', {'notification': n})
+
 
 @login_required
 def messages(request):
@@ -34,7 +37,6 @@ def messages(request):
 
 
 @login_required
-@csrf_protect
 def send_message(request):
     args = {}
     args['title'] = "Wyślij wiadomość"
